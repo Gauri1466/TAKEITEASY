@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Team</title>
+  <style>
+    /* Reset and basic styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    nav {
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      background-image: url("login.jpg");
+      background-size: cover; /* initial value */
+      background-position: center;
+      background-attachment: fixed; /* ensures a parallax effect */
+      min-height: 100vh;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-size: 0.875rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+      padding-top: 60px;
+    }
+    /* Header styling */
+    .team-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .team-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #222;
+    }
+    .team-header p {
+      font-size: 2rem;
+      color: #050404;
+    }
+    /* Team member cards */
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    /* Shared member styles */
+    .member {
+      background: linear-gradient(90deg, #165de0, #c222ce);
+      background: linear-gradient(100deg, #c222ce, #165de0);
+      opacity: 70%;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 15px;
+      padding: 20px;
+      flex: 1 1 300px;
+      text-align: center;
+      transition: transform 0.2s, filter 0.3s;
+      transition: opacity 0.25s ease-in-out;
+      
+    }
+    .member:hover {
+      transform: translateY(-10px);
+      opacity: 100%;
+      transition: opacity 0.75s ease-in-out;
+    }
+    /* When hovering over the container, blur all members that are not hovered */
+    .team-members:hover > .member:not(:hover) {
+      filter: blur(1.1px);
+    }
+    .member h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #000000;
+    }
+    .member p {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #000000;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <div class="logo">TAKE-IT-EASY</div>
+      <div class="nav-links">
+        <a href="login.html">TESTS</a>
+        <a href="landing_page.html">LEADERBOARD</a>
+        <a href="login">MY PROFILE</a>
+        <a href="login.html" class="login-btn">LOGIN</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <header class="team-header">
+      <h1>Meet Our Team</h1>
+      <p>Dedicated professionals ready to help you succeed</p>
+    </header>
+    <section class="team-members">
+      <div class="member member1">
+        <h2>Team Lead</h2>
+        <p><strong>Name:</strong> Gauri Sonavne</p>
+        <img src="1.webp" alt="Team Lead" width="300" height="200">
+        <p>Experienced leader who drives projects forward with clarity and vision.</p>
+      </div>
+      <div class="member member2">
+        <h2>Web Head</h2>
+        <p><strong>Name:</strong> Jayan Gopale</p>
+        <img src="1.webp" alt="Web Head" width="300" height="200">
+        <p>Expert in web development, ensuring seamless front-end and back-end performance.</p>
+      </div>
+      <div class="member member3">
+        <h2>Figma Opp</h2>
+        <p><strong>Name:</strong> Sakshi Wagh</p>
+        <img src="1.webp" alt="Figma Opp" width="300" height="200">
+        <p>Creative designer specializing in Figma, focused on user-friendly interfaces.</p>
+      </div>
+      <div class="member member4">
+        <h2>Overall Helper</h2>
+        <p><strong>Name:</strong> Emily Davis</p>
+        <img src="1.webp" alt="Overall Helper" width="300" height="200">
+        <p>Versatile support team member contributing across various disciplines.</p>
+      </div>
+    </section>
+  </div>
+  <!-- JavaScript to adjust background size on scroll -->
+  <script>
+    window.addEventListener('scroll', function() {
+      const scrollOffset = window.pageYOffset;
+      // Increase the background size slightly as you scroll down.
+      // You can adjust the divisor (e.g., 1000) to change the scaling speed.
+      const scaleFactor = 1 + scrollOffset / 1000;
+      document.body.style.backgroundSize = (scaleFactor * 100) + '%';
+    });
+  </script>
+</body>
+</html>

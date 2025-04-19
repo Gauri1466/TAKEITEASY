@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      /* Insert your desired background image or styling here */
+      background: url("login.jpg") no-repeat center center / cover;
+      min-height: 100vh;
+      color: #fff;
+    }
+    .profile-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    /* Left Panel (User info & Quiz list) */
+    .left-panel {
+      flex: 1 1 300px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      margin: 1rem;
+      padding: 2rem;
+      border-radius: 8px;
+    }
+    /* Title container with the username */
+    .title-container {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .title-container h2 {
+      font-size: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      padding: 1rem;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .start-quiz-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background-color: #6b21a8;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .start-quiz-btn:hover {
+      background-color: #581c87;
+    }
+    .previous-quizzes {
+      margin-top: 1rem;
+    }
+    .previous-quizzes h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    .quiz-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 0.75rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+    .quiz-item button {
+      background: #fff;
+      color: #333;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .quiz-item button:hover {
+      background: #ddd;
+    }
+    /* Right Panel (Scoreboard) */
+    .right-panel {
+      flex: 1 1 300px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      margin: 1rem;
+      padding: 2rem;
+      border-radius: 8px;
+    }
+    .scoreboard h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .score-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 0.75rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+    .score-name {
+      font-weight: bold;
+    }
+    .score-points {
+      font-size: 1rem;
+      color: #ffecb3;
+    }
+    @media (max-width: 768px) {
+      .profile-container {
+        flex-direction: column;
+      }
+      .left-panel, .right-panel {
+        margin: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <!-- Title container displaying the username -->
+      <div class="title-container">
+        <h2 id="username-display">USERNAME</h2>
+      </div>
+      <div class="start-quiz-btn">START QUIZ</div>
+      <div class="previous-quizzes">
+        <h3>PREVIOUS QUIZ</h3>
+        <div class="quiz-item">
+          <span>QUIZ 2: THERMODYNAMICS</span>
+          <button>ATTEMPT</button>
+        </div>
+        <div class="quiz-item">
+          <span>QUIZ 5: PHYSICS</span>
+          <button>ATTEMPT</button>
+        </div>
+        <div class="quiz-item">
+          <span>QUIZ 6: CHEMISTRY</span>
+          <button>ATTEMPT</button>
+        </div>
+        <div class="quiz-item">
+          <span>QUIZ 11: DATA SCIENCE</span>
+          <button>ATTEMPT</button>
+        </div>
+        <div class="quiz-item">
+          <span>QUIZ 12: MATHEMATICS</span>
+          <button>ATTEMPT</button>
+        </div>
+      </div>
+    </div>
+    <!-- Right Panel (Scoreboard) -->
+    <div class="right-panel scoreboard">
+      <h2>TOP PLAYERS</h2>
+      <!-- Expanded Indian names list -->
+      <div class="score-item">
+        <span class="score-name">Rahul Sharma</span>
+        <span class="score-points">2500</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Priya Patel</span>
+        <span class="score-points">2100</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Ankit Verma</span>
+        <span class="score-points">1900</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Kavya Singh</span>
+        <span class="score-points">1750</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Rohan Gupta</span>
+        <span class="score-points">1500</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Aisha Khan</span>
+        <span class="score-points">1400</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Aditya Chauhan</span>
+        <span class="score-points">1200</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Neha Mehta</span>
+        <span class="score-points">1100</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Rakesh Iyer</span>
+        <span class="score-points">800</span>
+      </div>
+      <div class="score-item">
+        <span class="score-name">Shreya Kulkarni</span>
+        <span class="score-points">600</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve the stored username from localStorage and display it
+    const storedUsername = localStorage.getItem('username');
+    const usernameDisplay = document.getElementById('username-display');
+
+    if (storedUsername) {
+      usernameDisplay.textContent = storedUsername;
+    } else {
+      usernameDisplay.textContent = "Guest";
+    }
+  </script>
+</body>
+</html>

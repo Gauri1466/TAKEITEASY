@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take-It-Easy - Challenge Your Mind</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: transparent;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: #343a40;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #041522; /* Changed hover color to coral */
+        }
+
+        .nav-links .signup-btn {
+            background-color: #6c63ff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav-links .signup-btn:hover {
+            background-color: #574b90;
+            transform: scale(1.05);
+        }
+
+        .hero {
+            background-size: cover;
+            background-image: url("assets/login.jpg");
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 1rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero-content {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #f6f5f5;
+            animation: slideInFromLeft 1s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #fff;
+            animation: typewriter 4s steps(40, end) infinite, blink 0.5s step-end infinite alternate;
+        }
+
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            from {
+                border-color: transparent;
+            }
+
+            to {
+                border-color: #fff;
+            }
+        }
+
+        .leaderboard-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 4rem auto;
+            gap: 2rem;
+        }
+
+        .leaderboard,
+        .message-container {
+            flex: 1;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(0);
+        }
+
+        .leaderboard.animate {
+            animation: slideInFromLeft 1s ease-in-out forwards;
+        }
+
+        .message-container.animate {
+            animation: slideInFromRight 1s ease-in-out forwards;
+        }
+
+        .leaderboard h2,
+        .message-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #4a4e69;
+        }
+
+        .leaderboard-table {
+            text-align: left;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        .ready-card {
+            max-width: 900px;
+            margin: 4rem auto;
+            background: linear-gradient(135deg, #4a4e69, #22223b);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #f6f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ready-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: rotateGlow 10s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ready-card h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .ready-card p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .ready-card .btn {
+            display: inline-block;
+            margin: 1rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ready-card .btn-signup {
+            background-color: #9a8c98;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .ready-card .btn-login {
+            background-color: #c9ada7;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .ready-card .btn-signup:hover {
+            background-color: #6c757d;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .ready-card .btn-login:hover {
+            background-color: #adb5bd;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .message-container img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .message-container p {
+            font-size: 1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .features {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h1 {
+            color: #4a4e69;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-content h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-content ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-content a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-content a:hover {
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .up-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            z-index: 1000;
+        }
+
+        .up-button:hover {
+            background-color: #574b90;
+            transform: scale(1.1);
+        }
+
+        .up-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .user-account {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-left: 1rem;
+            font-weight: bold;
+        }
+        
+        .account-icon {
+            margin-left: 0.5rem;
+            color: #fff;
+        }
+        
+        .user-name {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">TAKE-IT-EASY</div>
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="tests/questions.html">DAILY TESTS</a>
+                <a href="#">LEADERBOARD</a>
+                <a href="profile.html">MY PROFILE</a>
+                <div id="user-account" class="user-account" style="display: none;">
+                    <span class="user-name"></span>
+                    <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <a href="auth/login.html" id="login-link">LOGIN</a>
+                <a href="auth/register.html" class="signup-btn" id="register-link">REGISTER</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>COMPETE, LEARN, EXCEL</h1>
+            <p>Step Up, Shine Bright, and Dominate the Leaderboard!</p>
+        </div>
+    </section>
+
+    <section class="leaderboard-container">
+        <div class="leaderboard">
+            <h2>Challenge Your Mind</h2>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Maria Sharp</td>
+                        <td>2,450</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>John Smith</td>
+                        <td>2,300</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Alice Wilson</td>
+                        <td>2,150</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Bob Johnson</td>
+                        <td>2,000</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Sarah Davis</td>
+                        <td>1,950</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Brian Jones</td>
+                        <td>1,900</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Sanika Williams</td>
+                        <td>1,540</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Barvansh Brills</td>
+                        <td>1,500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="message-container">
+            <h2>Welcome to the Leaderboard</h2>
+            <img src="assets/4.webp" alt="Compete" width="100%" height="auto">
+            <p>Test your skills, compete with the best, and climb the ranks to be the ultimate champion. Are you ready
+                to challenge yourself?</p>
+        </div>
+    </section>
+
+    <section class="ready-card">
+        <h2>Ready to Start Your Daily Practice?</h2>
+        <p>Join thousands of learners improving their skills every day. Take the first step towards excellence now!</p>
+        <a href="auth/register.html" class="btn btn-signup">Sign Up Free</a>
+        <a href="auth/login.html" class="btn btn-login">Login</a>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <img src="assets/1.webp" alt="Compete">
+            <h1>COMPETE</h1>
+            <p>Challenge yourself against the best minds</p>
+        </div>
+        <div class="feature-card">
+            <img src="assets/2.webp" alt="Learn">
+            <h1>LEARN</h1>
+            <p>Master new skills and techniques</p>
+        </div>
+        <div class="feature-card">
+            <img src="assets/3.webp" alt="Excel">
+            <h1>EXCEL</h1>
+            <p>Rise to the top of the leaderboard</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h4>TAKE-IT-EASY</h4>
+                <p>A fun way to learn</p>
+            </div>
+            <div>
+                <h4>Pages</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="tests/tests.html">Tests</a></li>
+                    <li><a href="#">Leaderboard</a></li>
+                    <li><a href="auth/profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Company</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Social</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <button class="up-button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Load Firebase scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <!-- Load Firebase config -->
+    <script src="js/firebase.js"></script>
+    
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            const leaderboard = document.querySelector('.leaderboard');
+            const messageContainer = document.querySelector('.message-container');
+            const leaderboardPosition = leaderboard.getBoundingClientRect().top;
+            const messageContainerPosition = messageContainer.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+
+            if (leaderboardPosition < screenPosition) {
+                leaderboard.classList.add('animate');
+            }
+
+            if (messageContainerPosition < screenPosition) {
+                messageContainer.classList.add('animate');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (currentUser) {
+                const userAccount = document.getElementById('user-account');
+                const userName = userAccount.querySelector('.user-name');
+                const loginLink = document.getElementById('login-link');
+                const registerLink = document.getElementById('register-link');
+                
+                userName.textContent = currentUser.name || currentUser.email.split('@')[0];
+                
+                userAccount.style.display = 'flex';
+                if (loginLink) loginLink.style.display = 'none';
+                if (registerLink) registerLink.style.display = 'none';
+                
+                userAccount.addEventListener('click', function() {
+                    if (confirm('Do you want to log out?')) {
+                        localStorage.removeItem('currentUser');
+                        
+                        if (typeof firebase !== 'undefined' && firebase.auth) {
+                            firebase.auth().signOut().then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

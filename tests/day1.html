@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Questions Generator</title>
+    <link rel="stylesheet" href="tests.css">
+    <!-- Firebase and Gemini SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@google/generative-ai/dist/gemini-api.browser.min.js"></script>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            flex: 1;
+        }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+
+        #generate-btn {
+            background-color: #0f9d58;
+        }
+
+        #generate-btn:hover {
+            background-color: #0b8043;
+        }
+
+        #submit-btn {
+            background-color: #db4437;
+            display: none;
+        }
+
+        #submit-btn:hover {
+            background-color: #c53929;
+        }
+
+        .question-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        #result-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: #e6f4ea;
+            color: #0f9d58;
+        }
+
+        .error {
+            background-color: #fce8e6;
+            color: #c53929;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Daily Questions</h2>
+        
+        <div class="button-group">
+            <button id="generate-btn">Generate Today's Questions</button>
+            <button id="submit-btn">Submit Answers</button>
+        </div>
+        
+        <div id="questions-container"></div>
+        <div id="result-message"></div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_FIREBASE_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_FIREBASE_PROJECT_ID",
+            storageBucket: "YOUR_FIREBASE_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // Initialize Gemini
+        const genAI = new GeminiAPI('YOUR_GEMINI_API_KEY');
+
+        // DOM Elements
+        const generateBtn = document.getElementById('generate-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const questionsContainer = document.getElementById('questions-container');
+        const resultMessage = document.getElementById('result-message');
+
+        // Generate questions using Gemini
+        async function generateDailyQuestions() {
+            try {
+                generateBtn.disabled = true;
+                generateBtn.textContent = "Generating...";
+                
+                const prompt = `Generate 5 aptitude questions for today's daily challenge with:
+                1. Clear question text
+                2. 4 options labeled A, B, C, D
+                3. Correct answer (just the letter)
+                Format as JSON exactly like this:
+                {
+                    "date": "${new Date().toISOString().split('T')[0]}",
+                    "questions": [
+                        {
+                            "question": "What is 25% of 80?",
+                            "options": ["20", "25", "30", "35"],
+                            "answer": "A"
+                        }
+                    ]
+                }`;
+                
+                const response = await genAI.generateText(prompt);
+                const questionsData = JSON.parse(response);
+                
+                // Validate response format
+                if (!questionsData.questions || !Array.isArray(questionsData.questions)) {
+                    throw new Error("Invalid question format from Gemini");
+                }
+                
+                return questionsData;
+            } catch (error) {
+                console.error("Generation error:", error);
+                showMessage("Failed to generate questions. Please try again.", "error");
+                return null;
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = "Generate Today's Questions";
+            }
+        }
+
+        // Display questions
+        function displayQuestions(questions) {
+            questionsContainer.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options-container">
+                        ${q.options.map((opt, i) => `
+                            <label class="option-label">
+                                <input type="radio" name="q${index}" value="${String.fromCharCode(65 + i)}">
+                                ${String.fromCharCode(65 + i)}) ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                questionsContainer.appendChild(questionCard);
+            });
+            
+            submitBtn.style.display = 'block';
+        }
+
+        // Save questions to Firebase
+        async function saveQuestionsToFirebase(questionsData) {
+            try {
+                const today = questionsData.date;
+                await db.collection("daily_questions").doc(today).set({
+                    date: today,
+                    questions: questionsData.questions,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                console.log("Questions saved to Firebase");
+            } catch (error) {
+                console.error("Firebase save error:", error);
+                throw error;
+            }
+        }
+
+        // Submit answers to Firebase
+        async function submitAnswers() {
+            try {
+                const userId = firebase.auth().currentUser?.uid;
+                if (!userId) {
+                    showMessage("Please login to submit answers", "error");
+                    return;
+                }
+                
+                const answers = [];
+                const questionElements = document.querySelectorAll('.question-card');
+                
+                questionElements.forEach((q, index) => {
+                    const selected = q.querySelector(`input[name="q${index}"]:checked`);
+                    answers.push(selected ? selected.value : null);
+                });
+                
+                const today = new Date().toISOString().split('T')[0];
+                await db.collection("user_answers").add({
+                    userId: userId,
+                    date: today,
+                    answers: answers,
+                    submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showMessage("Answers submitted successfully!", "success");
+            } catch (error) {
+                console.error("Submission error:", error);
+                showMessage("Failed to submit answers", "error");
+            }
+        }
+
+        // Helper function to show messages
+        function showMessage(text, type) {
+            resultMessage.textContent = text;
+            resultMessage.className = type;
+            resultMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                resultMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Event Listeners
+        generateBtn.addEventListener('click', async () => {
+            const questionsData = await generateDailyQuestions();
+            if (questionsData) {
+                displayQuestions(questionsData.questions);
+                try {
+                    await saveQuestionsToFirebase(questionsData);
+                    showMessage("Questions generated and saved!", "success");
+                } catch (error) {
+                    showMessage("Questions generated but save failed", "error");
+                }
+            }
+        });
+
+        submitBtn.addEventListener('click', submitAnswers);
+
+        // Check for existing questions on load
+        async function loadExistingQuestions() {
+            const today = new Date().toISOString().split('T')[0];
+            try {
+                const doc = await db.collection("daily_questions").doc(today).get();
+                if (doc.exists) {
+                    displayQuestions(doc.data().questions);
+                    showMessage("Today's questions loaded", "success");
+                }
+            } catch (error) {
+                console.error("Load error:", error);
+            }
+        }
+
+        // Initialize
+        loadExistingQuestions();
+    </script>
+</body>
+</html>
+
+
+

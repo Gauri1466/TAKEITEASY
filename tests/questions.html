@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quiz Generator</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        .question-container { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .question-text { font-weight: bold; margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"] { width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 3px;}
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 1em; margin-right: 10px;}
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        .result { margin-top: 10px; font-weight: bold; }
+        .correct { color: green; }
+        .incorrect { color: red; }
+        .loading, .error { margin-top: 15px; font-style: italic; }
+        .error { color: red; }
+        .leaderboard { margin-top: 30px; }
+        .leaderboard h2 { margin-bottom: 15px; }
+        .leaderboard table { width: 100%; border-collapse: collapse; }
+        .leaderboard th, .leaderboard td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        .leaderboard th { background-color: #f2f2f2; }
+    </style>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <h1>AI Quiz (Gemini Powered)</h1>
+    <p>Answer each question briefly.</p>
+
+    <button id="generate-btn">Generate Questions</button>
+    <div id="quiz-area">
+        <!-- Questions will be loaded here -->
+    </div>
+    <div id="controls" style="display: none;">
+        <button id="submit-btn">Submit Answers</button>
+    </div>
+
+    <div id="loading-indicator" class="loading" style="display: none;">Loading...</div>
+    <div id="error-message" class="error"></div>
+
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <table id="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <!-- Leaderboard entries will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="scripts/gemini.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+    apiKey: "AIzaSyDhGLjdmSOP0dDMSfDf9H_A_lsIaM4krI4",
+    authDomain: "takeiteasy-a3b0e.firebaseapp.com",
+    projectId: "takeiteasy-a3b0e",
+    storageBucket: "takeiteasy-a3b0e.appspot.com",
+    messagingSenderId: "89777118804",
+    appId: "1:89777118804:web:41356a3f288f0e983557c1",
+    measurementId: "G-1YHN5E8H2L"
+};
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // DOM Elements
+        const generateBtn = document.getElementById('generate-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const quizArea = document.getElementById('quiz-area');
+        const controlsDiv = document.getElementById('controls');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const errorMessageDiv = document.getElementById('error-message');
+        const leaderboardBody = document.getElementById('leaderboard-body');
+
+        // State
+        let generatedQuestions = [];
+        let currentUser = null;
+
+        // Helper Functions
+        function showLoading(isLoading) {
+            loadingIndicator.style.display = isLoading ? 'block' : 'none';
+        }
+
+        function displayError(message) {
+            errorMessageDiv.textContent = message;
+            errorMessageDiv.style.display = message ? 'block' : 'none';
+        }
+
+        async function generateQuizQuestions() {
+            generateBtn.disabled = true;
+            quizArea.innerHTML = '';
+            controlsDiv.style.display = 'none';
+            generatedQuestions = [];
+            showLoading(true);
+
+            try {
+                const questions = await window.geminiAPI.generateQuestions();
+                generatedQuestions = questions;
+                displayQuestions();
+                controlsDiv.style.display = 'block';
+                submitBtn.disabled = false;
+            } catch (error) {
+                console.error("Failed to generate questions:", error);
+                displayError(`Error generating questions: ${error.message}`);
+            } finally {
+                showLoading(false);
+                generateBtn.disabled = false;
+            }
+        }
+
+        function displayQuestions() {
+            quizArea.innerHTML = '';
+            Object.entries(generatedQuestions).forEach(([category, questions], categoryIndex) => {
+                questions.forEach((question, index) => {
+                    const container = document.createElement('div');
+                    container.className = 'question-container';
+                    container.id = `question-${category}-${index}`;
+
+                    const questionText = document.createElement('div');
+                    questionText.className = 'question-text';
+                    questionText.textContent = `${category.toUpperCase()} Q${index + 1}: ${question}`;
+
+                    const label = document.createElement('label');
+                    label.setAttribute('for', `answer-${category}-${index}`);
+                    label.textContent = 'Your Answer:';
+
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = `answer-${category}-${index}`;
+                    input.name = `answer-${category}-${index}`;
+                    input.dataset.question = question;
+
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'result';
+                    resultDiv.id = `result-${category}-${index}`;
+
+                    container.appendChild(questionText);
+                    container.appendChild(label);
+                    container.appendChild(input);
+                    container.appendChild(resultDiv);
+                    quizArea.appendChild(container);
+                });
+            });
+        }
+
+        async function evaluateAnswers() {
+            submitBtn.disabled = true;
+            showLoading(true);
+            let totalScore = 0;
+            const evaluations = [];
+
+            for (const [category, questions] of Object.entries(generatedQuestions)) {
+                for (let i = 0; i < questions.length; i++) {
+                    const input = document.getElementById(`answer-${category}-${i}`);
+                    const resultDiv = document.getElementById(`result-${category}-${i}`);
+                    const userAnswer = input.value.trim();
+                    const question = input.dataset.question;
+
+                    if (!userAnswer) {
+                        resultDiv.textContent = 'Please provide an answer.';
+                        resultDiv.className = 'result incorrect';
+                        continue;
+                    }
+
+                    try {
+                        const evaluation = await window.geminiAPI.evaluateAnswer(question, userAnswer);
+                        resultDiv.textContent = evaluation.isCorrect ? 'Correct!' : 'Incorrect';
+                        resultDiv.className = `result ${evaluation.isCorrect ? 'correct' : 'incorrect'}`;
+                        
+                        if (evaluation.isCorrect) {
+                            totalScore++;
+                        }
+                        
+                        evaluations.push({
+                            question,
+                            userAnswer,
+                            isCorrect: evaluation.isCorrect,
+                            feedback: evaluation.feedback
+                        });
+                    } catch (error) {
+                        console.error(`Error evaluating answer for ${category} question ${i + 1}:`, error);
+                        resultDiv.textContent = 'Error evaluating answer';
+                        resultDiv.className = 'result error';
+                    }
+                }
+            }
+
+            // Store results in Firebase
+            if (currentUser) {
+                const resultRef = database.ref('quiz_results').push();
+                await resultRef.set({
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || 'Anonymous',
+                    score: totalScore,
+                    totalQuestions: Object.values(generatedQuestions).flat().length,
+                    evaluations,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
+            }
+
+            showLoading(false);
+            submitBtn.disabled = false;
+            generateBtn.disabled = false;
+            updateLeaderboard();
+        }
+
+        function updateLeaderboard() {
+            const leaderboardRef = database.ref('quiz_results')
+                .orderByChild('score')
+                .limitToLast(10);
+
+            leaderboardRef.once('value', (snapshot) => {
+                const results = [];
+                snapshot.forEach((childSnapshot) => {
+                    results.push(childSnapshot.val());
+                });
+
+                // Sort by score (descending) and timestamp (ascending)
+                results.sort((a, b) => {
+                    if (b.score !== a.score) {
+                        return b.score - a.score;
+                    }
+                    return a.timestamp - b.timestamp;
+                });
+
+                leaderboardBody.innerHTML = '';
+                results.forEach((result, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${result.userName}</td>
+                        <td>${result.score}/${result.totalQuestions}</td>
+                        <td>${new Date(result.timestamp).toLocaleDateString()}</td>
+                    `;
+                    leaderboardBody.appendChild(row);
+                });
+            });
+        }
+
+        // Event Listeners
+        generateBtn.addEventListener('click', generateQuizQuestions);
+        submitBtn.addEventListener('click', evaluateAnswers);
+
+        // Initialize
+        firebase.auth().onAuthStateChanged((user) => {
+            currentUser = user;
+            if (!user) {
+                // Redirect to login or show login prompt
+                displayError('Please log in to save your results');
+            }
+        });
+
+        // Initial state
+        controlsDiv.style.display = 'none';
+        displayError('');
+        updateLeaderboard();
+    </script>
+</body>
+</html>
