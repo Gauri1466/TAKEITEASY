@@ -34,7 +34,7 @@
     nav {
       background-color: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(179, 110, 110, 0.1);
       padding: 1rem 2rem;
       position: fixed;
       width: 100%;
@@ -68,12 +68,20 @@
     }
     
     .login-btn {
-      padding: 0.5rem 1rem;
-      background: linear-gradient(90deg, #165de0, #c222ce);
-      color: white !important;
-      border-radius: 4px;
-      font-weight: bold !important;
-    }
+  padding: 0.5rem 1rem;
+  color: rgb(165, 39, 39) !important;
+  border-radius: 4px;
+  font-weight: bold !important;
+  transition: transform 0.3s ease;
+}
+
+.login-btn:hover {
+  background: linear-gradient(90deg, #165de0, #c222ce);
+  color: white !important; /* Optional: make text pop on hover */
+  transform: translateY(-5px);
+
+}
+
     
     /* Team header section */
     .team-header {
@@ -125,7 +133,7 @@
       bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      animation: bounce 2s infinite;
+      
       color: white;
       font-size: 2rem;
     }
