@@ -12,10 +12,25 @@
       box-sizing: border-box;
       font-family: Arial, sans-serif;
     }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("images/login.jpg");
+            background-position: center;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      overflow-x: hidden;
+    }
+    
     .logo {
       font-size: 1.25rem;
       font-weight: bold;
     }
+    
     nav {
       background-color: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(8px);
@@ -33,86 +48,247 @@
       justify-content: space-between;
       align-items: center;
     }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-      background-image: url("images/login.jpg");
-      background-size: cover; /* initial value */
-      background-position: center;
-      background-attachment: fixed; /* ensures a parallax effect */
-      min-height: 100vh;
-    }
+    
     .nav-links {
       display: flex;
       gap: 2rem;
       align-items: center;
     }
+    
     .nav-links a {
       text-decoration: none;
       color: #333;
       font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.3s;
     }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 20px;
-      padding-top: 60px;
+    
+    .nav-links a:hover {
+      color: #165de0;
     }
-    /* Header styling */
+    
+    .login-btn {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(90deg, #165de0, #c222ce);
+      color: white !important;
+      border-radius: 4px;
+      font-weight: bold !important;
+    }
+    
+    /* Team header section */
     .team-header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      margin-bottom: 40px;
+      padding: 0 20px;
+      background-image: url("/api/placeholder/1200/800");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+      position: relative;
     }
+    
+    .team-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+    
     .team-header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .team-header p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      color: white;
+      font-size: 2rem;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+      }
+      40% {
+        transform: translateY(-20px) translateX(-50%);
+      }
+      60% {
+        transform: translateY(-10px) translateX(-50%);
+      }
+    }
+    
+    /* Team member sections */
+    .member-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      position: relative;
+    }
+    
+    .member-section:nth-child(odd) {
+      background: linear-gradient(135deg, rgba(22, 93, 224, 0.8), rgba(194, 34, 206, 0.8));
+    }
+    
+    .member-section:nth-child(even) {
+      background: linear-gradient(135deg, rgba(194, 34, 206, 0.8), rgba(22, 93, 224, 0.8));
+    }
+    
+    .member-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .member-img {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .member-img img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .member-info {
+      flex: 1;
+      padding: 20px;
+      color: white;
+    }
+    
+    .member-info h2 {
       font-size: 2.5rem;
       margin-bottom: 10px;
-      color: #222;
     }
-    .team-header p {
-      font-size: 2rem;
-      color: #050404;
+    
+    .member-info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      font-weight: normal;
     }
-    /* Team member cards */
-    .team-members {
+    
+    .member-info p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    
+    .member-social {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
+      gap: 15px;
+      margin-top: 20px;
     }
-    /* Shared member styles */
-    .member {
-      background: linear-gradient(90deg, #165de0, #c222ce);
-      background: linear-gradient(100deg, #c222ce, #165de0);
-      opacity: 70%;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin: 15px;
-      padding: 20px;
-      flex: 1 1 300px;
-      text-align: center;
-      transition: transform 0.2s, filter 0.3s;
-      transition: opacity 0.25s ease-in-out;
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      margin-right: 15px;
+}
+
+.social-icon svg {
+      width: 20px;
+  height: 20px;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px);
+}
+
+.linkedin-icon {
+  color: #0077b5;
+}
+
+.github-icon {
+  color: #333;
+}
+
+.instagram-icon {
+  color: #e4405f;
+}
+    
+    
+    .social-icon:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Media queries for responsive design */
+    @media (max-width: 768px) {
+      .member-container {
+        flex-direction: column;
+      }
       
+      .team-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .team-header p {
+        font-size: 1.2rem;
+      }
+      
+      .member-info h2 {
+        font-size: 2rem;
+      }
+      
+      .member-info h3 {
+        font-size: 1.5rem;
+      }
+      
+      .member-info p {
+        font-size: 1rem;
+      }
     }
-    .member:hover {
-      transform: translateY(-10px);
-      opacity: 100%;
-      transition: opacity 0.75s ease-in-out;
+    
+    /* For odd-numbered sections, switch the order on mobile */
+    @media (max-width: 768px) {
+      .member-section:nth-child(odd) .member-container {
+        flex-direction: column-reverse;
+      }
     }
-    /* When hovering over the container, blur all members that are not hovered */
-    .team-members:hover > .member:not(:hover) {
-      filter: blur(1.1px);
-    }
-    .member h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: #000000;
-    }
-    .member p {
-      font-size: 1rem;
-      margin-bottom: 8px;
-      color: #000000;
+    
+    /* Visible class to be added by JavaScript */
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -128,46 +304,185 @@
       </div>
     </div>
   </nav>
-  <div class="container">
-    <header class="team-header">
+  
+  <section class="team-header">
+    <div class="header-content">
       <h1>Meet Our Team</h1>
       <p>Dedicated professionals ready to help you succeed</p>
-    </header>
-    <section class="team-members">
-      <div class="member member1">
+    </div>
+    <div class="scroll-indicator">↓</div>
+  </section>
+  
+  <section class="member-section" id="member1">
+    <div class="member-container">
+      <div class="member-img">
+        <img src="images/4.webp" alt="Gauri Sonavne" />
+      </div>
+      <div class="member-info">
         <h2>Team Lead</h2>
-        <p><strong>Name:</strong> Gauri Sonavne</p>
-        <img src="1.webp" alt="Team Lead" width="300" height="200">
-        <p>Experienced leader who drives projects forward with clarity and vision.</p>
+        <h3>Gauri Sonavne</h3>
+        <p>Experienced leader who drives projects forward with clarity and vision. With expertise in project management and team coordination, Gauri ensures that every project is delivered on time and with the highest quality.</p>
+        <div class="member-social">
+          <a href="https://www.linkedin.com/in/gauri-sonawane-a62936285" class="social-icon linkedin-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon github-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon instagram-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+        </div>
       </div>
-      <div class="member member2">
+    </div>
+  </section>
+  
+  <section class="member-section" id="member2">
+    <div class="member-container">
+      <div class="member-info">
         <h2>Web Head</h2>
-        <p><strong>Name:</strong> Jayan Gopale</p>
-        <img src="1.webp" alt="Web Head" width="300" height="200">
-        <p>Expert in web development, ensuring seamless front-end and back-end performance.</p>
+        <h3>Jayan Gopale</h3>
+        <p>Expert in web development, ensuring seamless front-end and back-end performance. Jayan brings innovative solutions to complex problems and has a keen eye for creating beautiful, functional websites that deliver exceptional user experiences.</p>
+        <div class="member-social">
+          <a href="https://www.linkedin.com/in/jayan-gopale-b54a2a2ab/" class="social-icon linkedin-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+            </svg>
+          </a>
+          <a href="https://github.com/JAYANGOPALE" class="social-icon github-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon instagram-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+        </div>
       </div>
-      <div class="member member3">
+      <div class="member-img">
+        <img src="images/3.webp" alt="Jayan Gopale" />
+      </div>
+    </div>
+  </section>
+  
+  <section class="member-section" id="member3">
+    <div class="member-container">
+      <div class="member-img">
+        <img src="images/2.webp" alt="Sakshi Wagh" />
+      </div>
+      <div class="member-info">
         <h2>Figma Opp</h2>
-        <p><strong>Name:</strong> Sakshi Wagh</p>
-        <img src="1.webp" alt="Figma Opp" width="300" height="200">
-        <p>Creative designer specializing in Figma, focused on user-friendly interfaces.</p>
+        <h3>Sakshi Wagh</h3>
+        <p>Creative designer specializing in Figma, focused on user-friendly interfaces. Sakshi combines artistic talent with user experience expertise to create designs that are not only beautiful but also highly functional and intuitive for users.</p>
+        <div class="member-social">
+          <a href="#" class="social-icon linkedin-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon github-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon instagram-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+        </div>
       </div>
-      <div class="member member4">
+    </div>
+  </section>
+  
+  <section class="member-section" id="member4">
+    <div class="member-container">
+      <div class="member-info">
         <h2>Overall Helper</h2>
-        <p><strong>Name:</strong> Emily Davis</p>
-        <img src="1.webp" alt="Overall Helper" width="300" height="200">
-        <p>Versatile support team member contributing across various disciplines.</p>
+        <h3>Emily Davis</h3>
+        <p>Versatile support team member contributing across various disciplines. Emily's adaptability and wide range of skills make her an essential part of our team, providing assistance and expertise wherever needed to ensure project success.</p>
+        <div class="member-social">
+          <a href="#" class="social-icon linkedin-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon github-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon instagram-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+        </div>
       </div>
-    </section>
-  </div>
-  <!-- JavaScript to adjust background size on scroll -->
+      <div class="member-img">
+        <img src="images/1.webp" alt="Emily Davis" />
+      </div>
+    </div>
+  </section>
+  
   <script>
+    // Track sections that are currently visible
+    let visibleSections = new Set();
+    
+    // Observer to check when sections go out of view
+    const outObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+          // When a section leaves the viewport, remove its ID from the visible set
+          // and remove the visible class
+          const container = entry.target.querySelector('.member-container');
+          if (container) {
+            container.classList.remove('visible');
+            visibleSections.delete(entry.target.id);
+          }
+        }
+      });
+    }, { threshold: 0.2 }); // Section is considered "out" when less than 20% visible
+    
+    // Observer to check when sections come into view
+    const inObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // When a section enters the viewport, add its ID to the visible set
+          // and add the visible class
+          const container = entry.target.querySelector('.member-container');
+          if (container) {
+            container.classList.add('visible');
+            visibleSections.add(entry.target.id);
+          }
+        }
+      });
+    }, { threshold: 0.4 }); // Section is considered "in" when at least 40% visible
+    
+    // Get all member sections and observe them
+    const memberSections = document.querySelectorAll('.member-section');
+    memberSections.forEach(section => {
+      outObserver.observe(section);
+      inObserver.observe(section);
+    });
+    
+    // Adjust background size on scroll (parallax effect for header)
     window.addEventListener('scroll', function() {
       const scrollOffset = window.pageYOffset;
-      // Increase the background size slightly as you scroll down.
-      // You can adjust the divisor (e.g., 1000) to change the scaling speed.
-      const scaleFactor = 1 + scrollOffset / 1000;
-      document.body.style.backgroundSize = (scaleFactor * 100) + '%';
+      const header = document.querySelector('.team-header');
+      
+      // Parallax effect - move the background slightly
+      if (scrollOffset <= window.innerHeight) {
+        header.style.backgroundPositionY = (scrollOffset * 0.5) + 'px';
+      }
     });
   </script>
 </body>
