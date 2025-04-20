@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Our Team</title>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Team</title>
   <style>
     /* Reset and basic styles */
     * {
@@ -19,11 +25,7 @@
     
     body {
       font-family: Arial, sans-serif;
-      
-            background-position: center;
-      /*line-height: 1.6;*/
       background-color: #f4f4f4;
-      
       overflow-x: hidden;
     }
     
@@ -73,32 +75,52 @@
   color: rgb(165, 39, 39) !important;
   border-radius: 4px;
   font-weight: bold !important;
-  transition: transform 0.3s ease;
+  /* Add these properties for smoother transitions */
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s ease, transform 0.4s ease-out, background 0.4s ease;
 }
 
 .login-btn:hover {
   background: linear-gradient(90deg, #165de0, #c222ce);
-  color: white !important; /* Optional: make text pop on hover */
-  transform: translateY(-5px);
-
+  color: white !important;
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Add this to create a smoother effect with pseudo-element */
+.login-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #165de0, #c222ce);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.login-btn:hover::before {
+  opacity: 1;
+}
     
     /* Team header section */
     .team-header {
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-      background-image: url("/api/placeholder/1200/800");
+      background-image: url("images/login.jpg");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      color: #fff;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
     }
     
     .team-header::before {
@@ -134,7 +156,6 @@
       bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      
       color: white;
       font-size: 2rem;
     }
@@ -232,32 +253,27 @@
       justify-content: center;
       transition: transform 0.3s ease;
       margin-right: 15px;
-}
+    }
 
-.social-icon svg {
+    .social-icon svg {
       width: 20px;
-  height: 20px;
-}
+      height: 20px;
+    }
 
-.social-icon:hover {
-  transform: translateY(-5px);
-}
-
-.linkedin-icon {
-  color: #0077b5;
-}
-
-.github-icon {
-  color: #333;
-}
-
-.instagram-icon {
-  color: #e4405f;
-}
-    
-    
     .social-icon:hover {
       transform: translateY(-5px);
+    }
+
+    .linkedin-icon {
+      color: #0077b5;
+    }
+
+    .github-icon {
+      color: #333;
+    }
+
+    .instagram-icon {
+      color: #e4405f;
     }
     
     /* Media queries for responsive design */
@@ -287,7 +303,6 @@
       }
     }
     
-    /* For odd-numbered sections, switch the order on mobile */
     @media (max-width: 768px) {
       .member-section:nth-child(odd) .member-container {
         flex-direction: column-reverse;
@@ -485,12 +500,12 @@
     
     // Adjust background size on scroll (parallax effect for header)
     window.addEventListener('scroll', function() {
-      const scrollOffset = window.pageYOffset;
+      const scrollOffset = window.pageZOffset;
       const header = document.querySelector('.team-header');
       
       // Parallax effect - move the background slightly
       if (scrollOffset <= window.innerHeight) {
-        header.style.backgroundPositionY = (scrollOffset * 0.5) + 'px';
+        header.style.backgroundPositionZ= (scrollOffset * 0.5) + 'px';
       }
     });
   </script>
