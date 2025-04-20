@@ -16,7 +16,7 @@
         }
 
         body {
-            background-image: url("images/login.jpg");
+            
             background-size: cover;
             background-position: center;
             
@@ -44,7 +44,7 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             font-weight: bold;
             color: #fff;
         }
@@ -94,7 +94,7 @@
             text-align: center;
             color: white;
             padding: 1rem;
-            animation: fadeIn 2s ease-in-out;
+            
         }
 
         .hero-content {
@@ -117,7 +117,7 @@
             overflow: hidden;
             white-space: nowrap;
             border-right: 2px solid #fff;
-            animation: typewriter 4s steps(40, end) infinite, blink 0.5s step-end infinite alternate;
+            animation: typewriter 5s steps(40, end) infinite, blink 0.5s step-end infinite alternate;
         }
 
         @keyframes typewriter {
@@ -143,6 +143,7 @@
         .leaderboard-container {
             display: flex;
             justify-content: space-between;
+            
             max-width: 1000px;
             margin: 4rem auto;
             gap: 2rem;
@@ -151,7 +152,7 @@
         .leaderboard,
         .message-container {
             flex: 1;
-            background: white;
+            background: rgb(194, 188, 188);
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -164,6 +165,7 @@
         }
 
         .message-container.animate {
+            animation-delay: 5s;
             animation: slideInFromRight 1s ease-in-out forwards;
         }
 
@@ -302,6 +304,7 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
+            transform: scale(1.1);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
