@@ -63,30 +63,31 @@
       color: #333;
       font-size: 0.875rem;
       font-weight: 500;
-      transition: color 0.3s;
+      transition: all  0.3s ease-in-out;
     }
     
     .nav-links a:hover {
       color: #165de0;
+      transform: scale(1.1)
     }
     
     .login-btn {
   padding: 0.5rem 1rem;
-  color: rgb(165, 39, 39) !important;
+  color: rgb(0, 0, 0) !important;
   border-radius: 4px;
   font-weight: bold !important;
   /* Add these properties for smoother transitions */
   background: transparent;
   position: relative;
   overflow: hidden;
-  transition: color 0.4s ease, transform 0.4s ease-out, background 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .login-btn:hover {
   background: linear-gradient(90deg, #165de0, #c222ce);
-  color: white !important;
-  
+  color: rgb(0, 0, 0);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: transparent;
 }
 
 /* Add this to create a smoother effect with pseudo-element */
