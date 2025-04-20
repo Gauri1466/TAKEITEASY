@@ -13,10 +13,25 @@
             font-family: Arial, sans-serif;
         }
 
-        body {
-            background-image: url("../assets/login.jpg");
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            background-image: url("111.jpg");
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+            filter: blur(3px); /* Adjust the blur amount as needed */
+            z-index: -2;
+        }
+
+        body {
+            position: relative;
+            background: transparent; /* Remove the background from body */
             min-height: 100vh;
         }
 
@@ -25,10 +40,16 @@
             backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             padding: 1rem 2rem;
+            position: fixed;
+            z-index: 1000;
+            width: 100%; /* Add this to make it span the entire width */
+            top: 0; /* Add this to fix it to the top */
+            left: 0; /* Add this to ensure it starts from the left edge */
         }
 
         .nav-content {
             max-width: 1200px;
+            height: 10%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -44,22 +65,34 @@
             display: flex;
             gap: 2rem;
             align-items: center;
-        }
+            }
 
         .nav-links a {
             text-decoration: none;
+            padding: 0.10rem 1rem;
+            border-radius: 4px;
             color: #333;
-            font-size: 0.875rem;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: color 0.5s ease, transform 0.5s ease;
+            display: inline-block;
+            /* Add this property to maintain space when scaled */
+            transform-origin: center;
+            /*to ensure the element stays in its original space */
+            margin: 3px; /* Small margin to prevent touching adjacent elements */
         }
-
+        .nav-links a:hover {
+            color: #000000;
+            transform: scale(1.2);
+        }
+        
         .form-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: calc(100vh - 4rem);
-            padding: 1rem;
-
-
+            min-height: 100vh;
+            padding: 5rem 1rem 1rem; /* Increased top padding to account for fixed navbar */
         }
 
         .form-box {
@@ -140,6 +173,25 @@
             background: #581c87;
         }
 
+        .submit-btn2 {
+            width: 50%;
+            padding: 0.25rem;
+            
+            background: #c5c2c8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: 2px solid black;
+            align-items : center;
+        }
+
+        .submit-btn2:hover {
+            background: #581c87;
+        }
         .form {
             display: none;
         }
@@ -197,6 +249,7 @@
             <div class="logo">TAKE-IT-EASY</div>
             <div class="nav-links">
                 <a href="#">TESTS</a>
+                
                 <a href="landing_page.html">LEADERBOARD</a>
             </div>
         </div>
@@ -240,6 +293,10 @@
                     <div class="error-message" id="password-error"></div>
                 </div>
                 <button type="submit" class="submit-btn">REGISTER</button>
+                <div class="form-group">               
+                    <button onclick="googlelogin()" >
+                        Login with Google</button>
+                </div>
             </form>
         </div>
     </div>

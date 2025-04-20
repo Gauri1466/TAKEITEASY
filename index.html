@@ -17,13 +17,13 @@
 
         body {
             background-image: url("images/login.jpg");
-            background-size: contain;
+            background-size: cover;
             background-position: center;
             
         }
 
         nav {
-            /*background-color: transparent;*/
+            background-color: transparent;
             backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             padding: 1rem 2rem;
@@ -64,6 +64,8 @@
 
         .nav-links a:hover {
             color: #041522; /* Changed hover color to coral */
+            border-color: transparent;
+            transform: scale(1.1);
         }
 
         .nav-links .signup-btn {
