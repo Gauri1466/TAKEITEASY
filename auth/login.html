@@ -8,9 +8,9 @@
     /* Reset and basic styles */
     * {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
     }
     
     html, body {
@@ -19,7 +19,7 @@
     }
     
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       /* Use your background image */
       background-image: url(111.jpg);
       background-size: cover;
@@ -44,68 +44,98 @@
     
     /* Navigation */
     nav {
-      background-color: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 1rem 2rem;
-      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.5s ease;
     }
     
     .nav-content {
       max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
     }
     
-    .logo {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #333;
-      text-decoration: none;
-    }
+    
     
     .nav-links {
       display: flex;
       gap: 2rem;
       align-items: center;
     }
-    
-    .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: color 0.4s ease, transform 0.3s ease;
-    display: inline-block; /* This is needed for transform to work properly */
-}
 
-.nav-links a:hover {
-    color: #000000;
-    transform: scale(1.1); /* This creates a zoom effect - 1.1 means 10% larger */
-}
-    
-    /* Improved Register button */
-    .register-btn {
-      padding: 0.5rem 1rem;
-      color: rgb(165, 39, 39);
-      border-radius: 4px;
-      font-weight: bold;
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
       position: relative;
-      overflow: hidden;
-      transition: color 0.4s ease, transform 0.4s ease-out, background 0.4s ease;
-      background: transparent;
-      border: 1px solid rgba(165, 39, 39, 0.3);
+      padding: 0.3rem 0;
     }
-    
-    .register-btn:hover {
-      background: linear-gradient(90deg, #165de0, #c222ce);
-      color: rgb(167, 117, 117);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      border-color: transparent;
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ff006e;
+      transition: width 0.3s ease;
     }
-    
+
+    .nav-links a:hover {
+      color: #5643c2;
+      transform: translateY(-3px);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links .register-btn {
+      background: linear-gradient(45deg, #ff006e, #8338ec);
+      color: rgb(0, 0, 0);
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+      border: none;
+    }
+
+    .nav-links .register-btn:hover {
+      color: #ffffff;
+      background: linear-gradient(45deg, #8338ec, #ff006e);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    }
+    .logo {
+      font-family: 'Poppins';
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            position: relative;
+            animation: glowText 2s ease-in-out infinite alternate;
+            text-decoration: none;
+        }
+
+        @keyframes glowText {
+            from {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+        }
     /* Login form container */
     .login-container {
       flex: 1;
@@ -117,7 +147,6 @@
     }
     
     .login-card {
-      
       background-color: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(8px);
       border-radius: 10px;

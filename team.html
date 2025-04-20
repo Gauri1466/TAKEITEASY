@@ -16,7 +16,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
     
     html {
@@ -29,84 +29,109 @@
       overflow-x: hidden;
     }
     
+    
     .logo {
       font-size: 1.25rem;
       font-weight: bold;
     }
     
     nav {
-      background-color: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(179, 110, 110, 0.1);
-      padding: 1rem 2rem;
-      position: fixed;
-      width: 100%;
-      z-index: 1000;
-    }
-    
-    .nav-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-    
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: all  0.3s ease-in-out;
-    }
-    
-    .nav-links a:hover {
-      color: #165de0;
-      transform: scale(1.1)
-    }
-    
-    .login-btn {
-  padding: 0.5rem 1rem;
-  color: rgb(0, 0, 0) !important;
-  border-radius: 4px;
-  font-weight: bold !important;
-  /* Add these properties for smoother transitions */
-  background: transparent;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease;
-}
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
 
-.login-btn:hover {
-  background: linear-gradient(90deg, #165de0, #c222ce);
-  color: rgb(0, 0, 0);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-color: transparent;
-}
+        nav.scrolled {
+            background-color: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
 
-/* Add this to create a smoother effect with pseudo-element */
-.login-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, #165de0, #c222ce);
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.4s ease;
-}
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.login-btn:hover::before {
-  opacity: 1;
-}
+        .logo {
+          font-family: 'Poppins';
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            position: relative;
+            animation: glowText 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowText {
+            from {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.3rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff006e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #5643c2;
+            transform: translateY(-3px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links .login-btn {
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            color: rgb(0, 0, 0);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+            border: none;
+        }
+
+        .nav-links .login-btn:hover {
+            color: #ffffff;
+            background: linear-gradient(45deg, #8338ec, #ff006e);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+        }
+
     
     /* Team header section */
     .team-header {

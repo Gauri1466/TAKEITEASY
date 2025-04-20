@@ -27,3 +27,8 @@ try {
     // Remove loading state
     document.getElementById('register-form').classList.remove('loading');
 }
+
+document.getElementById('togglePassword').addEventListener('click', () => {
+    const pass = document.getElementById('password');
+    pass.type = pass.type === 'password' ? 'text' : 'password';
+  });
