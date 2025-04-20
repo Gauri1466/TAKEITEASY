@@ -12,10 +12,10 @@
       font-family: Arial, sans-serif;
     }
     body {
-      background-image: url("images/login.jpg");
-      background-size: cover;
-      background-position: center;
+      background: url('images/login.jpg') center/cover no-repeat;
       min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
     }
     nav {
       background-color: rgba(255, 255, 255, 0.9);
@@ -46,26 +46,40 @@
     }
     .register-btn {
       padding: 0.5rem 1rem;
-      border: 1px solid #e2e2e2;
+      border: 2px solid #d3d3d3;
       border-radius: 4px;
       background: transparent;
       cursor: pointer;
     }
-    .login-container {
+    .register-btn:hover {
+  background: linear-gradient(90deg, #165de0, #c222ce);
+  color: white;
+  transition: all 0.4s ease;
+  border-color: transparent;
+  
+}
+
+.login-container {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: calc(100vh - 4rem);
       padding: 1rem;
+      /* ← no background here! */
     }
+
     .login-box {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.4);
       padding: 2rem;
       border-radius: 8px;
       width: 100%;
       max-width: 400px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
+
     .login-title {
       text-align: center;
       font-size: 1.5rem;
