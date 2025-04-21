@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('login.jpg') no-repeat center center fixed; /* Background image */
+            background-size: cover; /* Ensure the image covers the entire screen */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.875rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6b21a8;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #6b21a8;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #6b21a8; /* Purple heading */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6b21a8; /* Purple header */
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1e6ff; /* Light purple hover effect */
+        }
+
+        .back-btn {
+            display: block;
+            margin: 1rem auto;
+            padding: 0.75rem 1.5rem;
+            background-color: #6b21a8; /* Purple button */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .back-btn:hover {
+            background-color: #574b90; /* Darker purple on hover */
+        }
+
+        .filter-container {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .filter-container input[type="date"] {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .filter-container button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #6b21a8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-container button:hover {
+            background-color: #574b90;
+        }
+
+        .highlight {
+            background-color: #d1e7dd; /* Light green background for highlighting */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">TAKE-IT-EASY</div>
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="tests/questions.html">DAILY TESTS</a>
+                <a href="leaderboard.html">LEADERBOARD</a>
+                <a href="profile.html">MY PROFILE</a>
+                <a href="auth/logout.html">LOGOUT</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Leaderboard</h1>
+        <div class="filter-container">
+            <label for="date-filter">Select Date:</label>
+            <input type="date" id="date-filter">
+            <button onclick="filterLeaderboard()">Filter</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Email</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <!-- Leaderboard entries will be dynamically loaded here -->
+            </tbody>
+        </table>
+        <a href="tests/questions.html" class="back-btn">Back to Quiz</a>
+    </div>
+    <script>
+        async function loadLeaderboard(date = null) {
+            const leaderboardBody = document.getElementById('leaderboard-body');
+            leaderboardBody.innerHTML = ''; // Clear existing rows
+            try {
+                let query = firebase.firestore()
+                    .collection('quiz_results')
+                    .orderBy('score', 'desc'); // Order by score in descending order
+
+                if (date) {
+                    const startOfDay = new Date(date);
+                    startOfDay.setHours(0, 0, 0, 0);
+                    const endOfDay = new Date(date);
+                    endOfDay.setHours(23, 59, 59, 999);
+
+                    console.log('Filtering leaderboard for date:', startOfDay, 'to', endOfDay); // Debug log
+                    query = query
+                        .where('timestamp', '>=', startOfDay)
+                        .where('timestamp', '<=', endOfDay)
+                        .limit(5); // Limit to top 5 scores
+                }
+
+                const snapshot = await query.get();
+                console.log('Query snapshot size:', snapshot.size); // Debug log
+
+                if (snapshot.empty) {
+                    leaderboardBody.innerHTML = '<tr><td colspan="4">No results found for the selected date.</td></tr>';
+                    return;
+                }
+
+                const currentUserEmail = firebase.auth().currentUser?.email || null; // Get current user's email
+
+                snapshot.forEach((doc, index) => {
+                    const data = doc.data();
+                    console.log('Document data:', data); // Debug log
+                    const scoreDate = new Date(data.timestamp.toDate());
+                    const userEmail = data.userEmail || 'No Email Provided'; // Use userEmail from quiz_results
+
+                    const row = document.createElement('tr');
+                    row.className = userEmail === currentUserEmail ? 'highlight' : ''; // Highlight current user's row
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${userEmail}</td>
+                        <td>${data.score}</td>
+                        <td>${scoreDate.toLocaleDateString()}</td>
+                    `;
+                    leaderboardBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading leaderboard:', error);
+                leaderboardBody.innerHTML = '<tr><td colspan="4">Failed to load leaderboard. Please try again later.</td></tr>';
+            }
+        }
+
+        function filterLeaderboard() {
+            const date = document.getElementById('date-filter').value;
+            if (date) {
+                loadLeaderboard(date);
+            } else {
+                alert('Please select a date to filter the leaderboard.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        loadLeaderboard(); // Load leaderboard without filtering on page load
+                    } else {
+                        alert('Please log in to view the leaderboard.');
+                        window.location.href = 'auth/login.html';
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing leaderboard:', error);
+            }
+        });
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase.js"></script>
+</body>
+</html>
