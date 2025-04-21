@@ -1,0 +1,341 @@
+{
+    "theory": {
+        "basic": [
+            { 
+                "question": "What is a data structure?", 
+                "options": [
+                    "A way to organize and store data.",
+                    "A programming language.",
+                    "A type of algorithm.",
+                    "A software framework."
+                ],
+                "answer": "A way to organize and store data."
+            },
+            { 
+                "question": "What is an array?", 
+                "options": [
+                    "A collection of elements stored at contiguous memory locations.",
+                    "A type of loop.",
+                    "A sorting algorithm.",
+                    "A data structure that uses pointers."
+                ],
+                "answer": "A collection of elements stored at contiguous memory locations."
+            },
+            { 
+                "question": "What is a linked list?", 
+                "options": [
+                    "A linear data structure where elements are linked using pointers.",
+                    "A type of array.",
+                    "A sorting algorithm.",
+                    "A data structure that uses hash tables."
+                ],
+                "answer": "A linear data structure where elements are linked using pointers."
+            },
+            { 
+                "question": "What is a stack?", 
+                "options": [
+                    "A data structure that follows LIFO principle.",
+                    "A data structure that follows FIFO principle.",
+                    "A type of graph.",
+                    "A sorting algorithm."
+                ],
+                "answer": "A data structure that follows LIFO principle."
+            },
+            { 
+                "question": "What is a queue?", 
+                "options": [
+                    "A data structure that follows FIFO principle.",
+                    "A data structure that follows LIFO principle.",
+                    "A type of tree.",
+                    "A sorting algorithm."
+                ],
+                "answer": "A data structure that follows FIFO principle."
+            }
+        ],
+        "medium": [
+            { 
+                "question": "What is a binary search tree?", 
+                "options": [
+                    "A tree where each node has at most two children and left < root < right.",
+                    "A type of graph.",
+                    "A sorting algorithm.",
+                    "A data structure that uses hash tables."
+                ],
+                "answer": "A tree where each node has at most two children and left < root < right."
+            },
+            { 
+                "question": "What is a hash table?", 
+                "options": [
+                    "A data structure that maps keys to values using a hash function.",
+                    "A type of array.",
+                    "A sorting algorithm.",
+                    "A data structure that uses pointers."
+                ],
+                "answer": "A data structure that maps keys to values using a hash function."
+            },
+            { 
+                "question": "What is dynamic programming?", 
+                "options": [
+                    "A method for solving problems by breaking them into overlapping subproblems.",
+                    "A type of graph.",
+                    "A sorting algorithm.",
+                    "A data structure that uses hash tables."
+                ],
+                "answer": "A method for solving problems by breaking them into overlapping subproblems."
+            },
+            { 
+                "question": "What is a graph?", 
+                "options": [
+                    "A collection of nodes connected by edges.",
+                    "A type of tree.",
+                    "A sorting algorithm.",
+                    "A data structure that uses pointers."
+                ],
+                "answer": "A collection of nodes connected by edges."
+            },
+            { 
+                "question": "What is a heap?", 
+                "options": [
+                    "A complete binary tree used for priority queues.",
+                    "A type of graph.",
+                    "A sorting algorithm.",
+                    "A data structure that uses hash tables."
+                ],
+                "answer": "A complete binary tree used for priority queues."
+            }
+        ],
+        "hard": [
+            { 
+                "question": "What is a red-black tree?", 
+                "options": [
+                    "A self-balancing binary search tree.",
+                    "A type of graph.",
+                    "A sorting algorithm.",
+                    "A data structure that uses hash tables."
+                ],
+                "answer": "A self-balancing binary search tree."
+            },
+            { 
+                "question": "What is a B-tree?", 
+                "options": [
+                    "A self-balancing search tree for databases and file systems.",
+                    "A type of array.",
+                    "A sorting algorithm.",
+                    "A data structure that uses pointers."
+                ],
+                "answer": "A self-balancing search tree for databases and file systems."
+            },
+            { 
+                "question": "What is a trie?", 
+                "options": [
+                    "A tree used for storing strings efficiently.",
+                    "A type of graph.",
+                    "A sorting algorithm.",
+                    "A data structure that uses hash tables."
+                ],
+                "answer": "A tree used for storing strings efficiently."
+            },
+            { 
+                "question": "What is a segment tree?", 
+                "options": [
+                    "A tree used for range queries and updates.",
+                    "A type of array.",
+                    "A sorting algorithm.",
+                    "A data structure that uses pointers."
+                ],
+                "answer": "A tree used for range queries and updates."
+            },
+            { 
+                "question": "What is a suffix array?", 
+                "options": [
+                    "An array of all suffixes of a string sorted lexicographically.",
+                    "A type of graph.",
+                    "A sorting algorithm.",
+                    "A data structure that uses hash tables."
+                ],
+                "answer": "An array of all suffixes of a string sorted lexicographically."
+            }
+        ]
+    },
+    "coding": {
+        "basic": [
+            { "question": "Write a function to reverse a string in Python.", "answer": "def reverse_string(s): return s[::-1]" },
+            { "question": "Write a function to check if a number is even in JavaScript.", "answer": "function isEven(num) { return num % 2 === 0; }" },
+            { "question": "Write a function to find the maximum of two numbers in C++.", "answer": "int max(int a, int b) { return (a > b) ? a : b; }" },
+            { "question": "Write a function to calculate the factorial of a number in Java.", "answer": "int factorial(int n) { return (n <= 1) ? 1 : n * factorial(n - 1); }" },
+            { "question": "Write a function to check if a string is a palindrome in Python.", "answer": "def is_palindrome(s): return s == s[::-1]" }
+        ],
+        "medium": [
+            { "question": "Write a function to find the nth Fibonacci number.", "answer": "def fibonacci(n): return n if n <= 1 else fibonacci(n-1) + fibonacci(n-2)" },
+            { "question": "Write a function to sort an array using merge sort.", "answer": "function mergeSort(arr) { /* implementation */ }" },
+            { "question": "Write a function to find the longest common prefix in an array of strings.", "answer": "function longestCommonPrefix(strs) { /* implementation */ }" },
+            { "question": "Write a function to implement binary search.", "answer": "int binarySearch(int arr[], int x) { /* implementation */ }" },
+            { "question": "Write a function to detect a cycle in a linked list.", "answer": "bool hasCycle(ListNode* head) { /* implementation */ }" }
+        ],
+        "hard": [
+            { "question": "Write a function to implement Dijkstra's algorithm.", "answer": "void dijkstra(int graph[V][V], int src) { /* implementation */ }" },
+            { "question": "Write a function to solve the N-Queens problem.", "answer": "bool solveNQueens(int board[N][N], int col) { /* implementation */ }" },
+            { "question": "Write a function to find the maximum subarray sum using Kadane's algorithm.", "answer": "int maxSubArraySum(int a[], int size) { /* implementation */ }" },
+            { "question": "Write a function to implement a LRU cache.", "answer": "class LRUCache { /* implementation */ }" },
+            { "question": "Write a function to find the shortest path in a graph using Bellman-Ford algorithm.", "answer": "void bellmanFord(int graph[V][V], int src) { /* implementation */ }" }
+        ]
+    },
+    "aptitude": {
+        "basic": [
+            { 
+                "question": "What is 15% of 200?", 
+                "options": [
+                    "30",
+                    "25",
+                    "35",
+                    "40"
+                ],
+                "answer": "30"
+            },
+            { 
+                "question": "If a train travels 60 km in 1 hour, how far will it travel in 3 hours?", 
+                "options": [
+                    "180 km",
+                    "120 km",
+                    "200 km",
+                    "150 km"
+                ],
+                "answer": "180 km"
+            },
+            { 
+                "question": "If a person can complete a task in 5 hours, how long will it take two people to complete the same task?", 
+                "options": [
+                    "2.5 hours",
+                    "5 hours",
+                    "10 hours",
+                    "1 hour"
+                ],
+                "answer": "2.5 hours"
+            },
+            { 
+                "question": "Solve: 2x + 3 = 7. Find x.", 
+                "options": [
+                    "2",
+                    "3",
+                    "4",
+                    "1"
+                ],
+                "answer": "2"
+            },
+            { 
+                "question": "What is the square root of 144?", 
+                "options": [
+                    "12",
+                    "14",
+                    "10",
+                    "16"
+                ],
+                "answer": "12"
+            }
+        ],
+        "medium": [
+            { 
+                "question": "A man buys an article for $240 and sells it for $300. Find the profit percentage.", 
+                "options": [
+                    "25%",
+                    "20%",
+                    "30%",
+                    "15%"
+                ],
+                "answer": "25%"
+            },
+            { 
+                "question": "If the ratio of ages of A and B is 3:5 and the sum of their ages is 40, find their ages.", 
+                "options": [
+                    "12 and 20",
+                    "15 and 25",
+                    "10 and 30",
+                    "18 and 22"
+                ],
+                "answer": "12 and 20"
+            },
+            { 
+                "question": "A car covers a distance of 120 km in 2 hours. What is its speed?", 
+                "options": [
+                    "60 km/h",
+                    "50 km/h",
+                    "70 km/h",
+                    "80 km/h"
+                ],
+                "answer": "60 km/h"
+            },
+            { 
+                "question": "If a person invests $1000 at 5% annual interest, how much will it be after 2 years?", 
+                "options": [
+                    "$1102.5",
+                    "$1200",
+                    "$1050",
+                    "$1150"
+                ],
+                "answer": "$1102.5"
+            },
+            { 
+                "question": "Solve: 3x - 2y = 4 and x + y = 5.", 
+                "options": [
+                    "x=3, y=2",
+                    "x=2, y=3",
+                    "x=4, y=1",
+                    "x=1, y=4"
+                ],
+                "answer": "x=3, y=2"
+            }
+        ],
+        "hard": [
+            { 
+                "question": "A company has 10 employees. In how many ways can it form a team of 4?", 
+                "options": [
+                    "210",
+                    "120",
+                    "300",
+                    "150"
+                ],
+                "answer": "210"
+            },
+            { 
+                "question": "If a train 150 meters long is running at 60 km/h, how long will it take to pass a pole?", 
+                "options": [
+                    "9 seconds",
+                    "10 seconds",
+                    "8 seconds",
+                    "12 seconds"
+                ],
+                "answer": "9 seconds"
+            },
+            { 
+                "question": "What is the probability of getting a sum of 7 when rolling two dice?", 
+                "options": [
+                    "1/6",
+                    "1/12",
+                    "1/8",
+                    "1/4"
+                ],
+                "answer": "1/6"
+            },
+            { 
+                "question": "A tank is filled in 6 hours by three pipes A, B, and C. If A and B can fill it in 8 and 12 hours respectively, how long will C take?", 
+                "options": [
+                    "24 hours",
+                    "20 hours",
+                    "18 hours",
+                    "30 hours"
+                ],
+                "answer": "24 hours"
+            },
+            { 
+                "question": "If a person can complete a task in 10 days and another person can complete it in 15 days, how long will it take both to complete the task together?", 
+                "options": [
+                    "6 days",
+                    "8 days",
+                    "5 days",
+                    "7 days"
+                ],
+                "answer": "6 days"
+            }
+        ]
+    }
+}
