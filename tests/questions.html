@@ -544,6 +544,7 @@
                 const resultData = {
                     userId: user.uid,
                     userName: user.displayName || "Guest",
+                    userEmail: user.email, // Include the user's email
                     score,
                     totalQuestions: currentQuestions.length,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
