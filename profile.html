@@ -12,7 +12,7 @@
       font-family: Arial, sans-serif;
     }
     body {
-      background-image: url("assets/login.jpg");
+      background-image: url("images/login.jpg");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -34,7 +34,7 @@
     }
 
     nav {
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       padding: 1rem 2rem;
@@ -47,38 +47,58 @@
       align-items: center;
     }
     .logo {
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-size: 0.875rem;
-      position: relative;
-      padding: 0.5rem 0;
-      transition: color 0.3s;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #6b21a8;
-      transition: width 0.3s;
-    }
-    .nav-links a:hover {
-      color: #6b21a8;
-    }
-    .nav-links a:hover::after {
-      width: 100%;
-    }
+            font-family: 'Poppins';
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            position: relative;
+            animation: glowText 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowText {
+            from {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.3rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff006e;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #5643c2;
+            transform: translateY(-3px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%; 
+        }
     .main-container {
       max-width: 1200px;
       margin: 2rem auto;
@@ -310,7 +330,7 @@
       <div class="nav-links">
         <a href="index.html">HOME</a>
         <a href="tests/questions.html">DAILY TESTS</a>
-        <a href="#">LEADERBOARD</a>
+        <a href="leaderboard.html">LEADERBOARD</a>
         <a href="profile.html">MY PROFILE</a>
       </div>
     </div>

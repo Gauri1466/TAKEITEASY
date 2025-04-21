@@ -6,21 +6,42 @@
     <title>Leaderboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: url('login.jpg') no-repeat center center fixed; /* Background image */
-            background-size: cover; /* Ensure the image covers the entire screen */
+            background-image: url("images/login.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: #333;
             margin: 0;
-            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            padding-top: 80px; /* space for fixed nav */
         }
-
+    
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(107, 33, 168, 0.2), rgba(107, 33, 168, 0.1));
+            z-index: -1;
+        }
+    
         nav {
-            background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
         }
-
+    
         .nav-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -28,128 +49,151 @@
             justify-content: space-between;
             align-items: center;
         }
-
+    
         .logo {
-            font-size: 1.25rem;
+            font-size: 1.8rem;
             font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            animation: glowText 1.5s ease-in-out infinite alternate;
         }
-
+    
+        @keyframes glowText {
+            from { text-shadow: 0 0 6px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 16px rgba(255, 255, 255, 0.9); }
+        }
+    
         .nav-links {
             display: flex;
             gap: 2rem;
-            align-items: center;
         }
-
+        .nav-links .logout-btn {
+      background: linear-gradient(45deg, #ff006e, #8338ec);
+      color: rgb(0, 0, 0);
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+      border: none;
+    }
+    
         .nav-links a {
+            color: #fff;
             text-decoration: none;
-            color: #333;
-            font-size: 0.875rem;
+            font-size: 1rem;
             position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s;
+            transition: 0.3s ease;
         }
-
+    
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
-            width: 0;
             height: 2px;
-            background: #6b21a8;
-            transition: width 0.3s;
+            width: 0%;
+            background: #ff006e;
+            transition: 0.3s ease;
         }
-
+    
         .nav-links a:hover {
-            color: #6b21a8;
+            color: #ff006e;
         }
-
+    
         .nav-links a:hover::after {
             width: 100%;
         }
-
+    
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 2rem auto;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-
+    
         h1 {
             text-align: center;
-            color: #6b21a8; /* Purple heading */
+            color: #6b21a8;
+            margin-bottom: 1.5rem;
         }
-
+    
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
         }
-
+    
         th, td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e0e0e0;
         }
-
+    
         th {
-            background-color: #6b21a8; /* Purple header */
+            background-color: #6b21a8;
             color: white;
-        }
-
-        tr:hover {
-            background-color: #f1e6ff; /* Light purple hover effect */
-        }
-
-        .back-btn {
-            display: block;
-            margin: 1rem auto;
-            padding: 0.75rem 1.5rem;
-            background-color: #6b21a8; /* Purple button */
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 8px;
-            width: fit-content;
-        }
-
-        .back-btn:hover {
-            background-color: #574b90; /* Darker purple on hover */
-        }
-
-        .filter-container {
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .filter-container input[type="date"] {
-            padding: 0.5rem;
-            font-size: 1rem;
-            border: 1px solid #ddd;
             border-radius: 4px;
         }
-
+    
+        tr:hover {
+            background-color: #f7edff;
+        }
+    
+        .highlight {
+            background-color: #d1e7dd;
+            font-weight: bold;
+        }
+    
+        .back-btn {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #6b21a8, #574b90);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+    
+        .back-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #574b90, #6b21a8);
+        }
+    
+        .filter-container {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    
+        .filter-container input[type="date"] {
+            padding: 0.6rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-right: 0.5rem;
+        }
+    
         .filter-container button {
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             font-size: 1rem;
             background-color: #6b21a8;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background 0.3s;
         }
-
+    
         .filter-container button:hover {
             background-color: #574b90;
         }
-
-        .highlight {
-            background-color: #d1e7dd; /* Light green background for highlighting */
-            font-weight: bold;
-        }
     </style>
+    
 </head>
 <body>
     <nav>
@@ -160,7 +204,7 @@
                 <a href="tests/questions.html">DAILY TESTS</a>
                 <a href="leaderboard.html">LEADERBOARD</a>
                 <a href="profile.html">MY PROFILE</a>
-                <a href="auth/logout.html">LOGOUT</a>
+                
             </div>
         </div>
     </nav>
